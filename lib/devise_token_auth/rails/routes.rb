@@ -29,6 +29,7 @@ module ActionDispatch::Routing
         :class_name  => resource,
         :module      => :devise,
         :path        => "#{opts[:at]}",
+        :path_names  => opts[:path_names],
         :controllers => controllers,
         :skip        => opts[:skip] + [:omniauth_callbacks]
 
