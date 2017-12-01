@@ -3,14 +3,14 @@ module DeviseTokenAuth::Concerns::UserOmniauthCallbacks
 
   included do
     validates :email, presence: true, email: true, if: :email_provider?
-    validates_presence_of :uid, unless: :email_provider?
+    validates_presence_of :uid#, unless: :email_provider?
 
     # only validate unique emails among email registration users
     validates :email, uniqueness: { scope: :provider }, on: :create, if: :email_provider?
 
     # keep uid in sync with email
-    before_save :sync_uid
-    before_create :sync_uid
+    #before_save :sync_uid
+    #before_create :sync_uid
   end
 
   protected
@@ -20,6 +20,6 @@ module DeviseTokenAuth::Concerns::UserOmniauthCallbacks
   end
 
   def sync_uid
-    self.uid = email if provider == 'email'
+    self.uid = SecureRandom.uuid
   end
 end
